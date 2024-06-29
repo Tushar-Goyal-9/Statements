@@ -1,0 +1,42 @@
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.9;
+
+/*   
+      REQUIREMENTS
+  1. Write a smart contract that implements the:-
+    a) require() statement 
+    b) assert() statement 
+    c) revert() statement    
+*/
+
+contract Example{
+    address public owner;
+    uint public value;
+
+
+    constructor(){
+        owner=msg.sender;
+
+    }
+    modifier OwnerOnly(){
+        require(msg.sender== owner,"Not the owner");
+        _;
+    }
+// require statement 
+    function requireExample(uint _value)public OwnerOnly{
+        require(_value > 20, "Value should be greater than 20");
+        value =_value;
+    }
+
+// assert statement 
+    function assertExample() public view{
+        assert( value > 0);
+    }
+
+// revert statement 
+    function revertExample(uint _value) public pure{
+        if(_value > 5){
+            revert("This value must be smaller than 5");
+        }
+    }
+}
